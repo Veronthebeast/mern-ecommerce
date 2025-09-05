@@ -1,0 +1,13 @@
+# Carpetas de dependencias
+node_modules/
+
+# Archivos de entorno y de configuración
+.env
+
+# Archivos de logs de npm
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Archivos de sistema
+.DS_Store
