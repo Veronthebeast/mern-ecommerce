@@ -6,6 +6,8 @@ const cors = require('cors');
 
 // Importa las rutas de productos
 const productRoutes = require('./routes/productRoutes');
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes'); // Importa las rutas de usuario
 
 dotenv.config();
 
@@ -20,6 +22,8 @@ mongoose.connect(process.env.MONGO_URI)
 
 // Conecta las rutas de productos al prefijo /api/products
 app.use('/api/products', productRoutes);
+app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes); // Conecta las rutas de usuario
 
 app.listen(port, () => {
     console.log(`Servidor ejecutándose en el puerto ${port}`);
