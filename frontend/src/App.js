@@ -6,8 +6,9 @@ import HomePage from './pages/HomePage';
 import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
-import AdminDashboardPage from './pages/AdminDashboardPage'; // Importa la nueva página
-import ProtectedRoute from './components/ProtectedRoute'; // Importa el componente de protección
+import AdminDashboardPage from './pages/AdminDashboardPage';
+import AddProductPage from './pages/AddProductPage'; // Importa la nueva página
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -20,12 +21,19 @@ function App() {
             <Route path="/products" element={<ProductPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
-            {/* Aquí protegemos la ruta del panel de administración */}
             <Route 
               path="/admin" 
               element={
                 <ProtectedRoute isAdminRequired={true}>
                   <AdminDashboardPage />
+                </ProtectedRoute>
+              } 
+            />
+            <Route 
+              path="/admin/add-product" 
+              element={
+                <ProtectedRoute isAdminRequired={true}>
+                  <AddProductPage />
                 </ProtectedRoute>
               } 
             />
