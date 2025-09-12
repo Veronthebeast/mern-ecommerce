@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom'; // Asegúrate de importar Link
 import API from '../services/api';
 
 const AdminDashboardPage = () => {
@@ -43,7 +44,7 @@ const AdminDashboardPage = () => {
         <div style={{ padding: '2rem' }}>
             <h2>Panel de Administración - Productos</h2>
             {message && <p>{message}</p>}
-            <a href="/admin/add-product">Agregar Nuevo Producto</a>
+            <Link to="/admin/add-product">Agregar Nuevo Producto</Link>
             <div style={{ marginTop: '1rem', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))', gap: '2rem' }}>
                 {products.length === 0 ? (
                     <p>No hay productos disponibles.</p>
@@ -54,9 +55,15 @@ const AdminDashboardPage = () => {
                             <h3>{product.name}</h3>
                             <p>{product.description}</p>
                             <p>Precio: ${product.price}</p>
-                            <button onClick={() => handleDeleteProduct(product._id)} style={{ marginTop: '1rem' }}>
-                                Eliminar
-                            </button>
+                            <div style={{ display: 'flex', justifyContent: 'center', gap: '1rem', marginTop: '1rem' }}>
+                                {/* Agrega el botón de "Editar" */}
+                                <Link to={`/admin/edit-product/${product._id}`} style={{ padding: '0.5rem 1rem', backgroundColor: '#3498db', color: '#fff', textDecoration: 'none', borderRadius: '5px' }}>
+                                    Editar
+                                </Link>
+                                <button onClick={() => handleDeleteProduct(product._id)} style={{ padding: '0.5rem 1rem', backgroundColor: '#e74c3c', color: '#fff', border: 'none', borderRadius: '5px', cursor: 'pointer' }}>
+                                    Eliminar
+                                </button>
+                            </div>
                         </div>
                     ))
                 )}

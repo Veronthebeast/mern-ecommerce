@@ -13,13 +13,26 @@ router.get('/', async (req, res) => {
     }
 });
 
+// Ruta para obtener un solo producto por ID
+// GET /api/products/:id
+router.get('/:id', async (req, res) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+        res.json(product);
+    } catch (error) {
+        console.error('Error al obtener el producto:', error);
+        res.status(500).json({ message: 'Error del servidor' });
+    }
+});
+
 // Ruta para crear un nuevo producto
 // POST /api/products
 router.post('/', async (req, res) => {
-    console.log('Datos recibidos:', req.body); // Agrega esta línea
     const { name, description, price, category, image } = req.body;
     const newProduct = new Product({ name, description, price, category, image });
-
     try {
         const savedProduct = await newProduct.save();
         res.status(201).json(savedProduct);
@@ -39,6 +52,26 @@ router.delete('/:id', async (req, res) => {
         res.json({ message: 'Producto eliminado con éxito' });
     } catch (error) {
         console.error('Error al eliminar el producto:', error);
+        res.status(500).json({ message: 'Error del servidor' });
+    }
+});
+
+// Ruta para actualizar un producto
+// PUT /api/products/:id
+router.put('/:id', async (req, res) => {
+    try {
+        const { name, description, price, category, image } = req.body;
+        const updatedProduct = await Product.findByIdAndUpdate(
+            req.params.id,
+            { name, description, price, category, image },
+            { new: true, runValidators: true }
+        );
+        if (!updatedProduct) {
+            return res.status(404).json({ message: 'Producto no encontrado' });
+        }
+        res.json(updatedProduct);
+    } catch (error) {
+        console.error('Error al actualizar el producto:', error);
         res.status(500).json({ message: 'Error del servidor' });
     }
 });

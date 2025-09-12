@@ -4,23 +4,34 @@ const API = axios.create({
     baseURL: 'http://localhost:5000/api',
 });
 
-// Este es el objeto de servicio que contiene todas las funciones de la API.
 const apiService = {
-    // Función para obtener todos los productos
+    // Function to get all products
     getProducts: async () => {
         const response = await API.get('/products');
         return response.data;
     },
     
-    // Función para agregar un nuevo producto
+    // Function to get a single product by ID
+    getProductById: async (id) => {
+        const response = await API.get(`/products/${id}`);
+        return response.data;
+    },
+    
+    // Function to add a new product
     addProduct: async (productData) => {
         const response = await API.post('/products', productData);
         return response.data;
     },
     
-    // Función para eliminar un producto por su ID
+    // Function to delete a product by ID
     deleteProduct: async (id) => {
         const response = await API.delete(`/products/${id}`);
+        return response.data;
+    },
+    
+    // Function to update a product by ID
+    updateProduct: async (id, productData) => {
+        const response = await API.put(`/products/${id}`, productData);
         return response.data;
     },
 };

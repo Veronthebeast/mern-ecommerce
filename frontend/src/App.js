@@ -7,8 +7,9 @@ import ProductPage from './pages/ProductPage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
 import AdminDashboardPage from './pages/AdminDashboardPage';
-import AddProductPage from './pages/AddProductPage'; // Importa la nueva página
+import AddProductPage from './pages/AddProductPage';
 import ProtectedRoute from './components/ProtectedRoute';
+import EditProductPage from './pages/EditProductPage'; // <-- 1. Importa la nueva página
 
 function App() {
   return (
@@ -36,6 +37,15 @@ function App() {
                   <AddProductPage />
                 </ProtectedRoute>
               } 
+            />
+            {/* <-- 2. Añade la nueva ruta para editar productos */}
+            <Route
+              path="/admin/edit-product/:id"
+              element={
+                <ProtectedRoute isAdminRequired={true}>
+                  <EditProductPage />
+                </ProtectedRoute>
+              }
             />
           </Routes>
         </main>
